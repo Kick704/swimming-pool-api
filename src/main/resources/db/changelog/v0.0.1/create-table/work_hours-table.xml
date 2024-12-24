@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.29.xsd">
+
+    <changeSet id="create-table-work_hours" author="Kick704">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="work_hours"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="work_hours" remarks="Таблица рабочих часов бассейна">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="start_time" type="time">
+                <constraints nullable="false"/>
+            </column>
+            <column name="end_time" type="time">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_holiday" type="boolean">
+                <constraints nullable="false"/>
+            </column>
+            <column name="limit_per_hour" type="int" defaultValue="10">
+                <constraints nullable="false"/>
+            </column>
+            <column name="daily_limit_per_clients" type="int" defaultValue="1">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="add-unique-index-is-holiday" author="Kick704">
+        <addUniqueConstraint
+                tableName="work_hours"
+                columnNames="is_holiday"
+                constraintName="unique_work_hours_is_holiday"/>
+    </changeSet>
+
+</databaseChangeLog>

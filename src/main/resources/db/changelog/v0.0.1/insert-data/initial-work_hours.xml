@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.29.xsd">
+
+    <changeSet id="initial-work_hours" author="Kick704">
+        <preConditions onFail="MARK_RAN">
+            <tableIsEmpty tableName="work_hours"/>
+        </preConditions>
+
+        <sql>
+            INSERT INTO work_hours (start_time, end_time, is_holiday, limit_per_hour)
+            VALUES
+            ('10:00', '20:00', false, 10), -- рабочий день
+            ('11:00', '18:00', true, 8);  -- праздничный день
+        </sql>
+
+    </changeSet>
+
+</databaseChangeLog>
